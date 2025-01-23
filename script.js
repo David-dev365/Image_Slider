@@ -1,29 +1,36 @@
 let images = ['image1.png', 'image2.png', 'image3.png', 'image4.png'];
 let i = 0;
-let canvas = document.getElementById('canvas')
+let canvas = document.getElementById('canvas');
 
-canvas.style.background = `url(./images/${images[1]})`
+// Set the initial background image
+canvas.style.background = `url(./images/${images[i]})`;
 
-
-let arrows = document.querySelectorAll('.arrow')
+// Add click event listeners for manual navigation
+let arrows = document.querySelectorAll('.arrow');
 
 arrows.forEach(function(arrow) {
     arrow.addEventListener('click', function(e) {
-
-        if(e.target.id === 'left') {
+        if (e.target.id === 'left') {
             i--;
-            if(i < 0) {
+            if (i < 0) {
                 i = images.length - 1;
             }
             canvas.style.background = `url(./images/${images[i]})`;
-            console.log('left');
-        }else if(e.target.id === 'right') {
+        } else if (e.target.id === 'right') {
             i++;
-            if(i >= images.length) {
+            if (i >= images.length) {
                 i = 0;
             }
             canvas.style.background = `url(./images/${images[i]})`;
-            console.log('right');
         }
-    })
+    });
 });
+
+// Automatically slide images every 3 seconds
+setInterval(function() {
+    i++;
+    if (i >= images.length) {
+        i = 0;
+    }
+    canvas.style.background = `url(./images/${images[i]})`;
+}, 3000); // 3000 milliseconds = 3 seconds
